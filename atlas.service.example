@@ -1,0 +1,23 @@
+[Unit]
+Description=ATLAS & KOBA private cloud app
+After=network-online.target
+Wants=network-online.target
+[Service]
+Type=simple
+User=atlas
+Group=atlas
+WorkingDirectory=/opt/atlas
+Environment=ATLAS_PRIVATE_MODE=1
+Environment=ATLAS_PRIVATE_HOST=REPLACE_WITH_YOUR_MACHINE.YOUR_TAILNET.ts.net
+Environment=ATLAS_DATA_DIR=/var/lib/atlas/data
+Environment=ATLAS_BACKUP_DIR=/var/lib/atlas/backups
+ExecStart=/usr/bin/python3 /opt/atlas/atlas.py
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/var/lib/atlas
+UMask=0077
+[Install]
+WantedBy=multi-user.target
